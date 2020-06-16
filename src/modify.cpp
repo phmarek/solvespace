@@ -456,16 +456,16 @@ hEntity GraphicsWindow::SplitLine(hEntity he, Vector pinter) {
     // Don't get entities till after adding, realloc issues
 
     Entity *e0i = SK.GetEntity(r0i.entity(0)),
-           *ei1 = SK.GetEntity(ri1.entity(0));
+           *e1i = SK.GetEntity(ri1.entity(0));
 
     SK.GetEntity(e0i->point[0])->PointForceTo(p0);
     SK.GetEntity(e0i->point[1])->PointForceTo(pinter);
-    SK.GetEntity(ei1->point[0])->PointForceTo(pinter);
-    SK.GetEntity(ei1->point[1])->PointForceTo(p1);
+    SK.GetEntity(e1i->point[0])->PointForceTo(pinter);
+    SK.GetEntity(e1i->point[1])->PointForceTo(p1);
 
     ReplacePointInConstraints(hep0, e0i->point[0]);
-    ReplacePointInConstraints(hep1, ei1->point[1]);
-    Constraint::ConstrainCoincident(e0i->point[1], ei1->point[0]);
+    ReplacePointInConstraints(hep1, e1i->point[1]);
+    Constraint::ConstrainCoincident(e0i->point[1], e1i->point[0]);
     return e0i->point[1];
 }
 
