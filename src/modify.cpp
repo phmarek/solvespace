@@ -607,9 +607,7 @@ hEntity GraphicsWindow::SplitEntity(hEntity he, Vector pinter) {
         if(r.type != reqType)
             continue;
 
-        // If the user wants to keep the old entities around, they can just
-        // mark them construction first.
-        if(he == r.h.entity(0) && !r.construction) {
+        if(he == r.h.entity(0)) {
             r.tag = 1;
             break;
         }
