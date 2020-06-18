@@ -452,11 +452,11 @@ hEntity GraphicsWindow::SplitLine(hEntity he, Vector pinter) {
 
     // Add the two line segments this one gets split into.
     hRequest r0i = AddRequest(Request::Type::LINE_SEGMENT, /*rememberForUndo=*/false),
-             ri1 = AddRequest(Request::Type::LINE_SEGMENT, /*rememberForUndo=*/false);
+             r1i = AddRequest(Request::Type::LINE_SEGMENT, /*rememberForUndo=*/false);
     // Don't get entities till after adding, realloc issues
 
     Entity *e0i = SK.GetEntity(r0i.entity(0)),
-           *e1i = SK.GetEntity(ri1.entity(0));
+           *e1i = SK.GetEntity(r1i.entity(0));
 
     SK.GetEntity(e0i->point[0])->PointForceTo(p0);
     SK.GetEntity(e0i->point[1])->PointForceTo(pinter);
