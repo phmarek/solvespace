@@ -199,6 +199,7 @@ void GraphicsWindow::MakeSelected(Selection *stog) {
         selection.RemoveTagged();
     }
 
+    printf("selected entity %d\n", stog->entity.v);
     selection.Add(stog);
 }
 

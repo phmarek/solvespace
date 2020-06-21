@@ -443,7 +443,7 @@ void GraphicsWindow::MakeTangentArc() {
                 hent[1], hearc, /*arcFinish=*/(a == 1), pointf[1]);
 }
 
-hEntity GraphicsWindow::SplitLine(hEntity he, Vector pinter) {
+hEntity GraphicsWindow::SplitLine(hEntity he, Vector pinter) { // PM
     // Save the original endpoints, since we're about to delete this entity.
     Entity *e01 = SK.GetEntity(he);
     hEntity hep0 = e01->point[0], hep1 = e01->point[1];
@@ -462,6 +462,11 @@ hEntity GraphicsWindow::SplitLine(hEntity he, Vector pinter) {
     SK.GetEntity(e0i->point[1])->PointForceTo(pinter);
     SK.GetEntity(e1i->point[0])->PointForceTo(pinter);
     SK.GetEntity(e1i->point[1])->PointForceTo(p1);
+
+    printf("Entity %x at %p split into %d %p, %d %p\n",
+		    he.v, &he,
+		    r0i.v, e0i,
+		    r1i.v, e1i);
 
     ReplacePointInConstraints(hep0, e0i->point[0]);
     ReplacePointInConstraints(hep1, e1i->point[1]);
@@ -586,6 +591,7 @@ hEntity GraphicsWindow::SplitEntity(hEntity he, Vector pinter) {
     Entity *e = SK.GetEntity(he);
     Entity::Type entityType = e->type;
 
+    printf("splitting type %d\n", entityType);
     hEntity ret;
     if(e->IsCircle()) {
         ret = SplitCircle(he, pinter);
@@ -608,6 +614,9 @@ hEntity GraphicsWindow::SplitEntity(hEntity he, Vector pinter) {
             continue;
 
         if(he == r.h.entity(0)) {
+		printf("Entity %x at %p deleted\n",
+				r.h.entity(0).v, r.h.entity(0));
+
             r.tag = 1;
             break;
         }
@@ -725,7 +734,7 @@ void GraphicsWindow::SplitLinesOrCurves() {
             SK.request.RemoveTagged();
         } else {
             // Split second non-point entity and add constraint.
-            hib = SplitEntity(hb, pi);
+            hib = SplitEntity(hb, pi); // PM
             if(hia.v && hib.v) {
                 Constraint::ConstrainCoincident(hia, hib);
             }
