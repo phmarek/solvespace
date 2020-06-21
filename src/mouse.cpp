@@ -765,6 +765,7 @@ void GraphicsWindow::MouseRightUp(double x, double y) {
     }
 
     if(itemsSelected) {
+	    printf("*** selected, make DELETE\n");
         menu->AddItem(_("Delete"),
                       [this]() { MenuClipboard(Command::DELETE); });
         menu->AddSeparator();
